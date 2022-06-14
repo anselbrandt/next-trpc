@@ -1,5 +1,8 @@
+import { Note } from "@prisma/client";
 import type { NextPage } from "next";
 import Head from "next/head";
+import superjson from "superjson";
+import { SuperJSONResult } from "superjson/dist/types";
 import { prisma } from "../db/client";
 import { trpc } from "../utils/trpc";
 
@@ -15,11 +18,27 @@ const Hello: NextPage = () => {
   );
 };
 
-interface Props {
-  notes: string;
+interface NotesProps {
+  data: SuperJSONResult;
 }
 
-const Home: NextPage<Props> = ({ notes }) => {
+const Notes: NextPage<NotesProps> = ({ data }) => {
+  if (!data) return null;
+  const notes = superjson.deserialize(data) as Note[];
+  return (
+    <div>
+      {notes.map((note) => (
+        <div key={note.id}>{note.content}</div>
+      ))}
+    </div>
+  );
+};
+
+interface Props {
+  data: any;
+}
+
+const Home: NextPage<Props> = ({ data }) => {
   return (
     <div>
       <Head>
@@ -30,7 +49,7 @@ const Home: NextPage<Props> = ({ notes }) => {
 
       <div className="text-3xl font-bold underline">Next.js tRPC</div>
       <Hello />
-      <div>{notes}</div>
+      <Notes data={data} />
     </div>
   );
 };
@@ -38,11 +57,11 @@ const Home: NextPage<Props> = ({ notes }) => {
 export default Home;
 
 export const getServerSideProps = async () => {
-  const notes = await prisma.note.findMany();
+  const data = await prisma.note.findMany();
 
   return {
     props: {
-      notes: JSON.stringify(notes),
+      data: superjson.serialize(data),
     },
   };
 };
