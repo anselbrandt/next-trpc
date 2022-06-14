@@ -1,5 +1,12 @@
 # Next.js tRPC
 
+## tsconfig.json
+
+```
+"incremental": false,
+"noUncheckedIndexedAccess": true
+```
+
 ## Tailwind
 
 ```
