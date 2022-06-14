@@ -189,3 +189,25 @@ export default withTRPC<AppRouter>({
 ```
 
 `getBaseUrl()` provides the absolute URL which is required by tRPC.
+
+## superjson
+
+`/api/trpc/[trpc].ts`
+
+```
+export const appRouter = trpc
+  .router()
+  .transformer(superjson)
+  ...
+```
+
+`_app.tsx`
+
+```
+export default withTRPC<AppRouter>({
+  ...
+    return {
+    url,
+    transformer: superjson,
+    ...
+```
