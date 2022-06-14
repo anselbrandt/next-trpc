@@ -1,7 +1,24 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { trpc } from "../utils/trpc";
 
-const Home: NextPage = () => {
+const Hello: NextPage = () => {
+  const hello = trpc.useQuery(["hello", { text: "client" }]);
+  if (!hello.data) {
+    return <div>Loading...</div>;
+  }
+  return (
+    <div>
+      <p>{hello.data.greeting}</p>
+    </div>
+  );
+};
+
+interface Props {
+  notes: string;
+}
+
+const Home: NextPage<Props> = ({ notes }) => {
   return (
     <div>
       <Head>
@@ -11,6 +28,8 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="text-3xl font-bold underline">Next.js tRPC</div>
+      <Hello />
+      <div>{notes}</div>
     </div>
   );
 };

@@ -118,3 +118,7 @@ Prisma studio:
 ```
 npx prisma studio
 ```
+
+## tRPC
+
+https://trpc.io/docs/nextjs
