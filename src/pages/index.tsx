@@ -18,6 +18,18 @@ const Hello: NextPage = () => {
   );
 };
 
+const TrpcNotes: NextPage = () => {
+  const { data: notes } = trpc.useQuery(["notes"]);
+  if (!notes) return null;
+  return (
+    <div>
+      {notes.map((note) => (
+        <div key={note.id}>{note.content}</div>
+      ))}
+    </div>
+  );
+};
+
 interface NotesProps {
   data: SuperJSONResult;
 }
@@ -49,7 +61,10 @@ const Home: NextPage<Props> = ({ data }) => {
 
       <div className="text-3xl font-bold underline">Next.js tRPC</div>
       <Hello />
+      <div className="text-xl underline">From getServerSideProps</div>
       <Notes data={data} />
+      <div className="text-xl underline">From tRPC</div>
+      <TrpcNotes />
     </div>
   );
 };
