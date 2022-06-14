@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { prisma } from "../db/client";
 import { trpc } from "../utils/trpc";
 
 const Hello: NextPage = () => {
@@ -35,3 +36,13 @@ const Home: NextPage<Props> = ({ notes }) => {
 };
 
 export default Home;
+
+export const getServerSideProps = async () => {
+  const notes = await prisma.note.findMany();
+
+  return {
+    props: {
+      notes: JSON.stringify(notes),
+    },
+  };
+};
