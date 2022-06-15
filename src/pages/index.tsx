@@ -1,9 +1,10 @@
 import { Note } from "@prisma/client";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { SubmitHandler, useForm } from "react-hook-form";
 import superjson from "superjson";
 import { SuperJSONResult } from "superjson/dist/types";
+import NoteForm from "../components/NoteForm";
+import UserForm from "../components/UserForm";
 import { prisma } from "../db/client";
 import { trpc } from "../utils/trpc";
 
@@ -47,63 +48,6 @@ const Notes: NextPage<NotesProps> = ({ data }) => {
   );
 };
 
-type Inputs = {
-  title: string;
-  content: string;
-  authorId: string;
-};
-
-const NoteForm: NextPage = () => {
-  const client = trpc.useContext();
-  const { mutate } = trpc.useMutation("notes.create", {
-    onSuccess: () => {
-      client.invalidateQueries("notes.getAll");
-      reset();
-    },
-  });
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    mutate(data);
-  };
-
-  return (
-    <div className="my-4">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="text-xl font-bold underline">New note:</div>
-        <div>
-          <input
-            className="border"
-            placeholder="title"
-            {...register("title", { required: true })}
-          />
-        </div>
-        {errors.title && <div className="text-red-300">title required</div>}
-        <div>
-          <textarea className="border" {...register("content")} />
-        </div>
-        <div>
-          <input
-            className="border"
-            placeholder="authorId"
-            {...register("authorId", { required: true })}
-          />
-        </div>
-        {errors.authorId && (
-          <div className="text-red-300">authorId required</div>
-        )}
-        <div className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded w-auto inline-block">
-          <button type="submit">submit</button>
-        </div>
-      </form>
-    </div>
-  );
-};
-
 interface Props {
   data: any;
 }
@@ -124,6 +68,7 @@ const Home: NextPage<Props> = ({ data }) => {
       <div className="text-xl underline">From tRPC</div>
       <TrpcNotes />
       <NoteForm />
+      <UserForm />
     </div>
   );
 };

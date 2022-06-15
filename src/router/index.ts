@@ -2,6 +2,7 @@ import * as trpc from "@trpc/server";
 import superjson from "superjson";
 import { z } from "zod";
 import { notesRouter } from "./notes";
+import { usersRouter } from "./users";
 
 export const appRouter = trpc
   .router()
@@ -18,7 +19,8 @@ export const appRouter = trpc
       };
     },
   })
-  .merge("notes.", notesRouter);
+  .merge("notes.", notesRouter)
+  .merge("users.", usersRouter);
 
 // export type definition of API
 export type AppRouter = typeof appRouter;
