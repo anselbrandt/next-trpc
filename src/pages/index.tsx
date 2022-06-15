@@ -54,12 +54,22 @@ type Inputs = {
 };
 
 const NoteForm: NextPage = () => {
+  const client = trpc.useContext();
+  const { mutate } = trpc.useMutation("notes.create", {
+    onSuccess: () => {
+      client.invalidateQueries("notes.getAll");
+      reset();
+    },
+  });
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    mutate(data);
+  };
 
   return (
     <div className="my-4">

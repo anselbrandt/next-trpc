@@ -13,21 +13,21 @@ datasource db {
 }
 
 model Note {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-  title     String   @db.VarChar(255)
-  content   String?  @db.VarChar(5000)
-  published Boolean  @default(true)
-  author    User?    @relation(fields: [authorId], references: [id])
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  title     String    @db.VarChar(255)
+  content   String?   @db.VarChar(5000)
+  published Boolean   @default(true)
+  author    User?     @relation(fields: [authorId], references: [id])
   authorId  String?
 }
 
 model User {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-  email     String   @unique
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  email     String    @unique
   name      String?
   notes     Note[]
 }
