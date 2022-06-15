@@ -20,7 +20,7 @@ const Hello: NextPage = () => {
 };
 
 const TrpcNotes: NextPage = () => {
-  const { data: notes } = trpc.useQuery(["notes"]);
+  const { data: notes } = trpc.useQuery(["notes.getAll"]);
   if (!notes) return null;
   return (
     <div>
