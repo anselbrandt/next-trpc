@@ -1,9 +1,9 @@
 import { withTRPC } from "@trpc/next";
 import { AppType } from "next/dist/shared/lib/utils";
 import superjson from "superjson";
+import { AppRouter } from "../router";
 import "../styles/globals.css";
 import { getBaseUrl } from "../utils";
-import { AppRouter } from "./api/trpc/[trpc]";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;
