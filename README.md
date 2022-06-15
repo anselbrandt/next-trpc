@@ -213,3 +213,13 @@ export default withTRPC<AppRouter>({
 ```
 
 ## react hook form
+
+## NextAuth
+
+https://github.com/nextauthjs/next-auth-typescript-example
+
+Auth callback URL:
+
+```
+http://localhost:3000/api/auth/callback/github
+```
