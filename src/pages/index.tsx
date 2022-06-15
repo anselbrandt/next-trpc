@@ -1,7 +1,7 @@
 import { Note } from "@prisma/client";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import superjson from "superjson";
 import { SuperJSONResult } from "superjson/dist/types";
 import { prisma } from "../db/client";
@@ -47,15 +47,19 @@ const Notes: NextPage<NotesProps> = ({ data }) => {
   );
 };
 
+type Inputs = {
+  title: string;
+  content: string;
+  authorId: string;
+};
+
 const NoteForm: NextPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   return (
     <div className="my-4">
