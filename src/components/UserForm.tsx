@@ -29,7 +29,7 @@ const UserForm: NextPage = () => {
     <div className="my-4">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="text-xl font-bold underline">New user:</div>
-        <div>
+        <div className="my-2">
           <input
             className="border"
             placeholder="name@mail.com"
@@ -37,7 +37,7 @@ const UserForm: NextPage = () => {
           />
         </div>
         {errors.email && <div className="text-red-300">email required</div>}
-        <div>
+        <div className="my-2">
           <input
             className="border"
             placeholder="name"

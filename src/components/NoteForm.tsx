@@ -30,7 +30,7 @@ const NoteForm: NextPage = () => {
     <div className="my-4">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="text-xl font-bold underline">New note:</div>
-        <div>
+        <div className="my-2">
           <input
             className="border"
             placeholder="title"
@@ -38,10 +38,10 @@ const NoteForm: NextPage = () => {
           />
         </div>
         {errors.title && <div className="text-red-300">title required</div>}
-        <div>
+        <div className="my-2">
           <textarea className="border" {...register("content")} />
         </div>
-        <div>
+        <div className="my-2">
           <input
             className="border"
             placeholder="authorId"
