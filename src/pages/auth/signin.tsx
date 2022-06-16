@@ -5,26 +5,26 @@ import {
   signIn,
 } from "next-auth/react";
 import Image from "next/image";
-import nextAuthLogo from "../../public/logo-sm.png";
+import nextAuthLogo from "../../../public/logo-sm.png";
 
 const Signin = ({ csrfToken, providers }: any) => {
   if (!providers) return null;
   return (
     <div className="flex items-center justify-center h-screen">
-      <div>
+      <div className="p-10 border rounded-md border-slate-300">
         <div className="text-center">
           <Image
             src={nextAuthLogo}
             alt="NextAuth Logo"
-            width={150}
-            height={166}
+            width={136}
+            height={150}
           />
         </div>
-        <div>
+        <div className="mt-10">
           {Object.values(providers).map((provider: any) => (
             <div
               key={provider.id}
-              className="bg-blue-500 hover:bg-blue-700 text-white text-xl py-3 px-4 rounded w-auto inline-block"
+              className="bg-blue-500 hover:bg-blue-700 text-white text-lg  py-2 px-3 rounded w-auto inline-block"
             >
               <button onClick={() => signIn(provider.id)}>
                 Sign in with {provider.name}
