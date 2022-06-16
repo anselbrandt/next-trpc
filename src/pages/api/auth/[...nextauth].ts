@@ -19,7 +19,9 @@ export default NextAuth({
   },
   callbacks: {
     async jwt({ token }) {
-      token.userRole = "admin";
+      if (token.email === process.env.ADMIN_EMAIL) {
+        token.userRole = "admin";
+      }
       return token;
     },
   },
