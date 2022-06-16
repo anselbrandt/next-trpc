@@ -223,3 +223,33 @@ Auth callback URL:
 ```
 http://localhost:3000/api/auth/callback/github
 ```
+
+`.env.local`
+
+```
+GITHUB_ID=
+GITHUB_SECRET=
+SECRET=openssl rand -hex 32` or go to https://generate-secret.now.sh/32
+NEXTAUTH_SECRET=needs to match SECRET
+NEXTAUTH_URL=http://localhost:3000
+```
+
+More on how NextAuth.js middleware works: https://next-auth.js.org/configuration/nextjs#middleware
+
+### Custom auth pages:
+
+https://next-auth.js.org/configuration/pages
+
+`/api/auth/[...nextauth].ts`
+
+```
+...
+pages: {
+  signIn: '/auth/signin',
+  signOut: '/auth/signout',
+  error: '/auth/error', // Error code passed in query string as ?error=
+  verifyRequest: '/auth/verify-request', // (used for check email message)
+  newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
+}
+...
+```
