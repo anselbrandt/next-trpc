@@ -216,7 +216,7 @@ export default withTRPC<AppRouter>({
 
 ## NextAuth
 
-https://github.com/nextauthjs/next-auth-typescript-example
+https://github.com/nextauthjs/next-auth-example
 
 Auth callback URL:
 
